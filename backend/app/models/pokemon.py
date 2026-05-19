@@ -1,7 +1,8 @@
 from pydantic import BaseModel
 
+
 # specific stats for individual pokemons
-class PokemonStats(BaseModel): 
+class PokemonStats(BaseModel):
     hp: int
     attack: int
     defense: int

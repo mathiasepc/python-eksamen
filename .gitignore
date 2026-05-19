@@ -1,30 +1,24 @@
 # Virtual environment
 .venv/
-venv/
-env/
 
 # Python cache
 __pycache__/
-*.py[cod]
-*$py.class
+*.pyc
 
-# Python build/package files
-build/
-dist/
-*.egg-info/
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
 
-# Environment variables / secrets
+# Test coverage
+.coverage
+htmlcov/
+
+# Secrets / local config
 .env
 .env.*
 !.env.example
 
-# Test / lint / type check cache
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-htmlcov/
-
-# VS Code
-.vscode/
-!.vscode/launch.json
+# OS files
+.DS_Store
+Thumbs.db

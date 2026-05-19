@@ -3,9 +3,10 @@ import pandas as pd
 
 from app.models.pokemon import PokemonResponse
 
+
 def pokemon_to_row(pokemon: PokemonResponse) -> dict:
-    stats = pokemon.stats;
-    
+    stats = pokemon.stats
+
     # return a row of pokemon data.
     return {
         "name": pokemon.name,
@@ -16,20 +17,19 @@ def pokemon_to_row(pokemon: PokemonResponse) -> dict:
         "special_defense": stats.special_defense,
         "speed": stats.speed,
         "total_stats": pokemon.total_stats,
-    };
-    
+    }
+
+
 def create_stats_dataframe(pokemon_list: list[PokemonResponse]) -> pd.DataFrame:
-    rows = [
-        pokemon_to_row(pokemon)
-        for pokemon in pokemon_list
-    ];
-    
+    rows = [pokemon_to_row(pokemon) for pokemon in pokemon_list]
+
     # Add pokemon rows to DataFrame.
-    return pd.DataFrame(rows);
+    return pd.DataFrame(rows)
+
 
 def create_stats_summary(pokemon_list: list[PokemonResponse]) -> dict:
-    df = create_stats_dataframe(pokemon_list);
-    
+    df = create_stats_dataframe(pokemon_list)
+
     # If no pokemon found
     if df.empty:
         return {
@@ -39,14 +39,14 @@ def create_stats_summary(pokemon_list: list[PokemonResponse]) -> dict:
             "average_speed": 0,
             "strongest_pokemon": None,
             "fastest_pokemon": None,
-            "total_stats": 0
-        };
-    
+            "total_stats": 0,
+        }
+
     # Gets teh strongest pokemon
-    strongest_index = df["total_stats"].idxmax();
+    strongest_index = df["total_stats"].idxmax()
     # Get the fastest pokemon
-    fastest_index = df["speed"].idxmax();
-    
+    fastest_index = df["speed"].idxmax()
+
     # Returns a average stats object.
     return {
         "pokemon_count": int(len(df)),
@@ -57,5 +57,3 @@ def create_stats_summary(pokemon_list: list[PokemonResponse]) -> dict:
         "fastest_pokemon": str(df.loc[fastest_index, "name"]),
         "total_stats_by_pokemon": df.set_index("name")["total_stats"].to_dict(),
     }
-    
-    
