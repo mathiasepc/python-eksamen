@@ -13,14 +13,15 @@ def pokemon_to_row(pokemon: PokemonResponse) -> dict:
         "defense": stats.defense,
         "special_attack": stats.special_attack,
         "special_defense": stats.special_defense,
-        "speed": stats.speed
+        "speed": stats.speed,
+        "total_stats": pokemon.total_stats,
     };
     
 def create_stats_dataframe(pokemon_list: list[PokemonResponse]) -> pd.DataFrame:
-    rows = {
+    rows = [
         pokemon_to_row(pokemon)
         for pokemon in pokemon_list
-    };
+    ];
     
     return pd.DataFrame(rows);
 
@@ -34,7 +35,8 @@ def create_stats_summary(pokemon_list: list[PokemonResponse]) -> dict:
             "average_defense": 0,
             "average_speed": 0,
             "strongest_pokemon": None,
-            "fastest_pokemon": None
+            "fastest_pokemon": None,
+            "total_stats": 0
         };
     
     strongest_index = df["total_stats"].idxmax();
