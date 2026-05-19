@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.ai_endpoint import router as ai_router
+
 # route references
 from app.api.pokemon_endpoints import router as pokemon_router
 from app.api.stats_endpoint import router as stats_router
@@ -23,6 +25,7 @@ app.add_middleware(
 # Add our routes
 app.include_router(pokemon_router)
 app.include_router(stats_router)
+app.include_router(ai_router)
 
 
 # Just a check health check for my api.

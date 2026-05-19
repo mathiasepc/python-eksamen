@@ -10,15 +10,6 @@ __pycache__/
 .ruff_cache/
 .mypy_cache/
 
-# Test coverage
-.coverage
-htmlcov/
-
 # Secrets / local config
 .env
 .env.*
-!.env.example
-
-# OS files
-.DS_Store
-Thumbs.db
