@@ -17,6 +17,7 @@ async def get_stats_summary(names: str) -> dict:
         if name.strip()
     ];
     
+    # Control checks
     if len(pokemon_names) < 2:
         raise HTTPException(
             status_code=400,
@@ -32,6 +33,7 @@ async def get_stats_summary(names: str) -> dict:
     pokemon_list: list[PokemonResponse] = [];
     
     try:
+        # Add to pokemon_list
         for name in pokemon_names:
             pokemon = await get_pokemon(name);
             pokemon_list.append(pokemon);

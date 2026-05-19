@@ -6,6 +6,7 @@ from app.models.pokemon import PokemonResponse
 def pokemon_to_row(pokemon: PokemonResponse) -> dict:
     stats = pokemon.stats;
     
+    # return a row of pokemon data.
     return {
         "name": pokemon.name,
         "hp": stats.hp,
@@ -23,11 +24,13 @@ def create_stats_dataframe(pokemon_list: list[PokemonResponse]) -> pd.DataFrame:
         for pokemon in pokemon_list
     ];
     
+    # Add pokemon rows to DataFrame.
     return pd.DataFrame(rows);
 
 def create_stats_summary(pokemon_list: list[PokemonResponse]) -> dict:
     df = create_stats_dataframe(pokemon_list);
     
+    # If no pokemon found
     if df.empty:
         return {
             "pokemon_count": 0,
@@ -39,9 +42,12 @@ def create_stats_summary(pokemon_list: list[PokemonResponse]) -> dict:
             "total_stats": 0
         };
     
+    # Gets teh strongest pokemon
     strongest_index = df["total_stats"].idxmax();
+    # Get the fastest pokemon
     fastest_index = df["speed"].idxmax();
     
+    # Returns a average stats object.
     return {
         "pokemon_count": int(len(df)),
         "average_attack": float(np.mean(df["attack"])),

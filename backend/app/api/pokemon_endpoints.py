@@ -16,6 +16,7 @@ async def compare_pokemon(names: str) -> list[PokemonResponse]:
         if name.strip()
     ];
     
+    # Control checks
     if len(pokemon_names) < 2:
         raise HTTPException(
             status_code=400,
