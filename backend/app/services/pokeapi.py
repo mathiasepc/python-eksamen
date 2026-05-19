@@ -1,8 +1,13 @@
+import os
+
 import httpx
+from dotenv import load_dotenv
 
 from app.models.pokemon import PokemonResponse, PokemonStats
 
-POKEAPI_BASE_URL = "https://pokeapi.co/api/v2"
+load_dotenv()
+
+POKEAPI_BASE_URL = os.getenv("POKEAPI_BASE_URL")
 
 
 def parse_pokemon_response(data: dict) -> PokemonResponse:

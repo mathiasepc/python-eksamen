@@ -13,6 +13,7 @@ st.write(
     Welcome to PokeExplorer.
 
     Use the menu on the left:
+    - ask ai about a pokemon
     - search for a Pokemon
     - compare multible Pokemon
     - see simpel statistic
