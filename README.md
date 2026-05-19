@@ -1,97 +1,135 @@
-PokéExplorer — teknisk kravspecifikation
+# PokéExplorer
 
-Formål:
-At udvikle en webapplikation i Python, hvor brugeren kan søge, sammenligne og analysere Pokémon-data 
-samt stille spørgsmål til en AI-assistent.
+PokéExplorer is a Python exam project that allows users to explore Pokémon data through a web application.
 
-Funktionelle krav
-1. Søg Pokémon
+The project uses a Streamlit frontend and a FastAPI backend. The backend fetches Pokémon data from PokeAPI, structures the data with Pydantic, performs statistics with Pandas and NumPy, and exposes API endpoints for the frontend. The application also includes an AI page where users can ask questions about a Pokémon using the OpenAI API.
 
-Brugeren skal kunne indtaste navnet på en Pokémon og få vist:
+## Get started
 
-Navn
-Type(r)
-Evner
-Højde
-Vægt
-Base stats:
-- HP
-- Attack
-- Defense
-- Special Attack
-- Special Defense
-- Speed
+### Prerequisites
 
-2. Sammenlign Pokémon
+Before running the project, make sure you have installed:
 
-Brugeren skal kunne vælge 2-4 Pokémon og sammenligne deres base stats visuelt med Matplotlib.
+- Python 3.11 or 3.12
+- Docker Desktop
+- Git
 
-Eksempel på graf:
+### Setup
 
-bar chart
-radar-lignende graf
-total stats sammenligning
+1. Clone the project:
 
-3. Statistikside
+```bash
+git clone <repository-url>
+cd <project-folder>
+```
 
-Appen skal vise simple analyser baseret på Pandas/Numpy:
+2. Create a .env file in the project root. Use .env.example as a template
 
-Gennemsnitlig attack pr. type
-Gennemsnitlig defense pr. type
-Pokémon med højest total stats
-Normaliserede stats
+3. Start the project with Docker Compose: 
+```bash
+docker compose up --build
+```
 
-4. AI-side
+4. Stop the project with Docker Compose:
+```bash
+docker compose down
+```
 
-Brugeren skal kunne vælge en Pokémon og stille et spørgsmål.
+### Local development without Docker
 
-Eksempel:
+1. Create and activate a virtual environment: 
+```bash
+python -m venv .venv
+```
 
-"Hvorfor er Charizard god offensivt?"
+2. Start the virtual enviroment: 
+```bash
+.\.venv\Scripts\Activate.ps1
+```
 
-Backend sender Pokémon-data som kontekst til en LLM OpenAI.
+3. Install dependencies:
+```bash
+python -m pip install -r backend/requirements.txt
+python -m pip install -r frontend/requirements.txt
+python -m pip install -r requirements-dev.txt
+```
 
-5. Backend API
+4. Start the backend: 
+```bash
+cd backend
+python -m uvicorn app.main:app --reload --port 8001
+```
 
-FastAPI skal stå for:
+5. Start the frontend in another terminal:
+```bash
+cd frontend
+python -m streamlit run app.py
+```
 
-Hente data fra PokeAPI
-Validere input
-Strukturere responsdata
-Levere data til Streamlit
-Kalde LLM API
+6. Run all tests and checks:
+```bash
+uv run pre-commit run --all-files
+```
 
-6. Tests og kodekvalitet
+7. Or run them individually:
+```bash
+uv run pytest
+uv run ruff check .
+uv run ruff format .
+uv run pyright
+```
 
-Projektet skal have:
+## Features
 
-pytest
-type hints
-mypy
-ruff
-unit tests
+- Search for a Pokémon by name
+- View Pokémon types, abilities, height, weight and base stats
+- Compare multiple Pokémon visually
+- Show statistics based on selected Pokémon
+- Visualize data with Matplotlib
+- Ask AI questions about a selected Pokémon
+- Run tests and code quality checks
+- Start the full application with Docker Compose
 
-Minimum tests:
+## API Endpoints
+GET /health
+GET /api/pokemon/{name}
+GET /api/pokemon/compare?names=pikachu,charizard
+GET /api/stats/summary?names=pikachu,charizard,bulbasaur
+POST /api/ai/ask
 
-test_total_stats()
-test_normalize_stats()
-test_parse_pokemon_response()
-test_invalid_pokemon_name()
+## Technologies Used
 
-7. Docker Compose
+### Frontend
 
-Projektet skal kunne startes med: docker compose up --build
-Projektet skal kunne stoppes med: docker compose down
+- Streamlit
+- Requests
+- Pandas
+- Matplotlib
 
-Teknisk arkitektur
-Streamlit frontend
-        |
-        v
-FastAPI backend
-        |
-        v
-PokeAPI + LLM API
+### Backend
 
-Frontend kommunikerer kun med backend. Det gør arkitekturen nemmere at forklare til eksamen, fordi du kan sige:
+- FastAPI
+- Pydantic
+- HTTPX
+- PokeAPI
+- OpenAI API
+- Python-dotenv
 
-Streamlit håndterer præsentation og brugerinput, mens FastAPI håndterer datalogik, validering og eksterne API-kald.
+### Data and Statistics
+
+- Pandas
+- NumPy
+- Matplotlib
+
+### Testing and Code Quality
+
+- pytest
+- Ruff
+- Pyright
+- pre-commit
+- uv
+
+### Deployment / Runtime
+
+- Docker
+- Docker Compose
