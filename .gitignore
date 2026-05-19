@@ -13,3 +13,4 @@ __pycache__/
 # Secrets / local config
 .env
 .env.*
+!.env.example

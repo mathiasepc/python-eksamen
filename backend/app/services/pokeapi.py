@@ -7,7 +7,7 @@ from app.models.pokemon import PokemonResponse, PokemonStats
 
 load_dotenv()
 
-POKEAPI_BASE_URL = os.getenv("POKEAPI_BASE_URL")
+POKEAPI_BASE_URL = os.getenv("POKEAPI_BASE_URL", "https://pokeapi.co/api/v2")
 
 
 def parse_pokemon_response(data: dict) -> PokemonResponse:

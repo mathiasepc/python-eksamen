@@ -1,10 +1,12 @@
+import os
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import requests
 import streamlit as st
 from matplotlib.figure import Figure
 
-BACKEND_URL = "http://127.0.0.1:8001"
+BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8001")
 
 # Title of page config
 st.set_page_config(
