@@ -1,19 +1,31 @@
+# Defines which pre-commit hooks should run before a Git commit is created.
 repos:
+  # Official Ruff pre-commit repository.
+  # Ruff is used for linting and formatting Python code.
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.14.8
     hooks:
+      # Runs Ruff linting.
+      # The --fix argument allows Ruff to automatically fix simple issues.
       - id: ruff-check
         args: ["--fix"]
+
+      # Runs Ruff's code formatter.
+      # This ensures consistent formatting across the project.
       - id: ruff-format
 
+  # Local hooks run commands that are installed in the project's environment.
   - repo: local
     hooks:
+      # Runs Pyright for static type checking.
+      # This checks type hints and can catch type-related errors before runtime.
       - id: pyright
         name: pyright
         entry: uv run pyright
         language: system
         pass_filenames: false
 
+      # Runs Pytest to execute the project's unit tests.
       - id: pytest
         name: pytest
         entry: uv run pytest
