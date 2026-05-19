@@ -1,0 +1,30 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python build/package files
+build/
+dist/
+*.egg-info/
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# Test / lint / type check cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# VS Code
+.vscode/
+!.vscode/launch.json
