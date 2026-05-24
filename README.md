@@ -1,8 +1,8 @@
-# PokéExplorer
+# PokeExplorer
 
-PokéExplorer is a Python exam project that allows users to explore Pokémon data through a web application.
+PokeExplorer is a Python exam project that allows users to explore Pokemon data through a web application.
 
-The project uses a Streamlit frontend and a FastAPI backend. The backend fetches Pokémon data from PokeAPI, structures the data with Pydantic, performs statistics with Pandas and NumPy, and exposes API endpoints for the frontend. The application also includes an AI page where users can ask questions about a Pokémon using the OpenAI API.
+The project uses a Streamlit frontend and a FastAPI backend. The backend fetches Pokemon data from PokeAPI, structures the data with Pydantic, performs statistics with Pandas and NumPy, and exposes API endpoints for the frontend. The application also includes an AI page where users can ask questions about a Pokemon using the OpenAI API.
 
 ## Get started
 
@@ -81,12 +81,12 @@ uv run pyright
 
 ## Features
 
-- Search for a Pokémon by name
-- View Pokémon types, abilities, height, weight and base stats
-- Compare multiple Pokémon visually
-- Show statistics based on selected Pokémon
+- Search for a Pokemon by name
+- View Pokemon types, abilities, height, weight and base stats
+- Compare multiple Pokemon visually
+- Show statistics based on selected Pokemon
 - Visualize data with Matplotlib
-- Ask AI questions about a selected Pokémon
+- Ask AI questions about a selected Pokemon
 - Run tests and code quality checks
 - Start the full application with Docker Compose
 
