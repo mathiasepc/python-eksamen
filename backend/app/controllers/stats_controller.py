@@ -10,7 +10,13 @@ router = APIRouter(prefix="/api/stats", tags=["stats"])
 
 @router.get("/summary", response_model=StatsResponse)
 async def get_stats_summary(names: str) -> StatsResponse:
-    pokemon_names = [name.strip() for name in names.split(",") if name.strip()]
+    pokemon_names = []
+
+    for name in names.split(","):
+        cleaned_name = name.strip()
+
+        if cleaned_name:
+            pokemon_names.append(cleaned_name)
 
     # Control checks
     if len(pokemon_names) < 2:

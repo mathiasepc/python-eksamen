@@ -11,7 +11,16 @@ POKEAPI_BASE_URL = os.getenv("POKEAPI_BASE_URL", "https://pokeapi.co/api/v2")
 
 
 def parse_pokemon_response(data: dict) -> PokemonResponse:
-    stats_dict = {stat_item["stat"]["name"]: stat_item["base_stat"] for stat_item in data["stats"]}
+    stats_dict = {}
+
+    # Example of data
+    # {"base_stat": 35, "stat": {"name": "hp"}},
+    # {"base_stat": 55, "stat": {"name": "attack"}}
+    for stat_item in data["stats"]:
+        stat_name = stat_item["stat"]["name"]
+        base_stat = stat_item["base_stat"]
+
+        stats_dict[stat_name] = base_stat
 
     # Stats for indivdual pokemons
     stats = PokemonStats(

@@ -8,5 +8,4 @@ class AskAIRequest(BaseModel):
 
 class AskAIResponse(BaseModel):
     pokemon_name: str
-    question: str
     answer: str

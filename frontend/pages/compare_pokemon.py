@@ -30,6 +30,7 @@ def create_stats_dataframe(pokemon_list: list[dict]) -> pd.DataFrame:
     rows = []
 
     for pokemon in pokemon_list:
+        # Get stats
         stats = pokemon["stats"]
 
         rows.append(
@@ -57,31 +58,27 @@ def plot_base_stats(df: pd.DataFrame) -> Figure:
         "speed",
     ]
 
+    # Set "name" as the DataFrame index instead of using the default numeric index.
+    # Then select only the columns that contain base stats.
     chart_df = df.set_index("name")[stats_columns]
 
+    # Create a Matplotlib figure and axis.
+    # figsize controls the width and height of the chart.
     fig, ax = plt.subplots(figsize=(10, 5))
+    # Plot the DataFrame as a bar chart on the created axis.
     chart_df.plot(kind="bar", ax=ax)
 
-    ax.set_title("Base stats sammenligning")
-    ax.set_xlabel("Pokémon")
+    # Set the chart title and axis labels.
+    ax.set_title("Compare base stats")
+    ax.set_xlabel("Pokemon")
     ax.set_ylabel("Stat value")
+
+    # Show a legend that explains which color belongs to each stat.
     ax.legend(title="Stats")
+    # Keep Pokémon names horizontal on the x-axis.
     ax.tick_params(axis="x", rotation=0)
 
-    fig.tight_layout()
-
-    return fig
-
-
-def plot_total_stats(df: pd.DataFrame) -> Figure:
-    fig, ax = plt.subplots(figsize=(8, 4))
-
-    ax.bar(df["name"], df["total_stats"])
-
-    ax.set_title("Total stats")
-    ax.set_xlabel("Pokémon")
-    ax.set_ylabel("Total stats")
-
+    # Adjust spacing so labels and legend fit nicely inside the figure.
     fig.tight_layout()
 
     return fig

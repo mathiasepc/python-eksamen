@@ -25,11 +25,7 @@ async def ask_ai(request: AskAIRequest) -> AskAIResponse:
 
         answer = ask_openai_about_pokemon(pokemon, request.question)
 
-        return AskAIResponse(
-            pokemon_name=pokemon.name,
-            question=request.question,
-            answer=answer,
-        )
+        return AskAIResponse(pokemon_name=pokemon.name, answer=answer)
 
     except Exception as error:
         raise HTTPException(status_code=404, detail=str(error)) from error

@@ -8,7 +8,13 @@ router = APIRouter(prefix="/api/pokemon", tags=["pokemon"])
 
 @router.get("/compare", response_model=list[PokemonResponse])
 async def compare_pokemon(names: str) -> list[PokemonResponse]:
-    pokemon_names = [name.strip() for name in names.split(",") if name.strip()]
+    pokemon_names = []
+
+    for name in names.split(","):
+        cleaned_name = name.strip()
+
+        if cleaned_name:
+            pokemon_names.append(cleaned_name)
 
     # Control checks
     if len(pokemon_names) < 2:
