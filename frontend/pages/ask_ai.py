@@ -35,15 +35,14 @@ if st.button("Ask AI"):
         st.warning("You have to type a question")
 
     else:
-        with st.spinner("Waiting..."):
-            response = requests.post(
-                f"{BACKEND_URL}/api/ai/ask",
-                json={
-                    "pokemon_name": pokemon_name.strip(),
-                    "question": question.strip(),
-                },
-                timeout=60,
-            )
+        response = requests.post(
+            f"{BACKEND_URL}/api/ai/ask",
+            json={
+                "pokemon_name": pokemon_name.strip(),
+                "question": question.strip(),
+            },
+            timeout=60,
+        )
 
         if response.status_code == 200:
             data = response.json()

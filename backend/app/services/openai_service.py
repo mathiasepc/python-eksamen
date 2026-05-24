@@ -25,7 +25,6 @@ Stats:
 - Special attack: {pokemon.stats.special_attack}
 - Special defense: {pokemon.stats.special_defense}
 - Speed: {pokemon.stats.speed}
-Total stats: {pokemon.total_stats}
 """.strip()
 
 

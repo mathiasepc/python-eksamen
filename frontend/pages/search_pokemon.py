@@ -47,10 +47,21 @@ if st.button("Search"):
 
             # Stats of the specific pokemon
             st.write("### Base stats")
-            st.json(pokemon["stats"])
 
-            # all stats compined
-            st.metric("Total stats", pokemon["total_stats"])
+            stats = pokemon["stats"]
+            col1, col2, col3 = st.columns(3)
+
+            with col1:
+                st.metric("HP", stats["hp"])
+                st.metric("Attack", stats["attack"])
+
+            with col2:
+                st.metric("Defense", stats["defense"])
+                st.metric("Speed", stats["speed"])
+
+            with col3:
+                st.metric("Special attack", stats["special_attack"])
+                st.metric("Special defense", stats["special_defense"])
 
         elif response.status_code == 404:
             st.error("Pokemon was not found.")

@@ -21,5 +21,3 @@ class PokemonResponse(BaseModel):
     height: int
     weight: int
     stats: PokemonStats
-    # all stats accumulated
-    total_stats: int

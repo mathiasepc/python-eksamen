@@ -1,6 +1,5 @@
 from app.models.pokemon import PokemonResponse, PokemonStats
-from app.services.pokeapi import parse_pokemon_response
-from app.services.stats import create_stats_summary, pokemon_to_row
+from app.services.stats_service import create_stats_summary, pokemon_to_row
 
 
 def create_test_pokemon(
@@ -8,7 +7,9 @@ def create_test_pokemon(
     attack: int,
     defense: int,
     speed: int,
-    total_stats: int,
+    hp: int = 35,
+    special_attack: int = 50,
+    special_defense: int = 50,
 ) -> PokemonResponse:
     return PokemonResponse(
         name=name,
@@ -17,45 +18,14 @@ def create_test_pokemon(
         height=4,
         weight=60,
         stats=PokemonStats(
-            hp=35,
+            hp=hp,
             attack=attack,
             defense=defense,
-            special_attack=50,
-            special_defense=50,
+            special_attack=special_attack,
+            special_defense=special_defense,
             speed=speed,
         ),
-        total_stats=total_stats,
     )
-
-
-def test_parse_pokemon_response() -> None:
-    fake_pokeapi_response = {
-        "name": "pikachu",
-        "types": [{"type": {"name": "electric"}}],
-        "abilities": [
-            {"ability": {"name": "static"}},
-            {"ability": {"name": "lightning-rod"}},
-        ],
-        "height": 4,
-        "weight": 60,
-        "stats": [
-            {"base_stat": 35, "stat": {"name": "hp"}},
-            {"base_stat": 55, "stat": {"name": "attack"}},
-            {"base_stat": 40, "stat": {"name": "defense"}},
-            {"base_stat": 50, "stat": {"name": "special-attack"}},
-            {"base_stat": 50, "stat": {"name": "special-defense"}},
-            {"base_stat": 90, "stat": {"name": "speed"}},
-        ],
-    }
-
-    pokemon = parse_pokemon_response(fake_pokeapi_response)
-
-    assert pokemon.name == "pikachu"
-    assert pokemon.types == ["electric"]
-    assert pokemon.abilities == ["static", "lightning-rod"]
-    assert pokemon.stats.attack == 55
-    assert pokemon.stats.speed == 90
-    assert pokemon.total_stats == 320
 
 
 def test_pokemon_to_row() -> None:
@@ -64,33 +34,59 @@ def test_pokemon_to_row() -> None:
         attack=55,
         defense=40,
         speed=90,
-        total_stats=320,
     )
 
     row = pokemon_to_row(pokemon)
 
     assert row["name"] == "pikachu"
+    assert row["hp"] == 35
     assert row["attack"] == 55
     assert row["defense"] == 40
     assert row["speed"] == 90
-    assert row["total_stats"] == 320
+    assert row["special_attack"] == 50
+    assert row["special_defense"] == 50
 
 
 def test_create_stats_summary() -> None:
     pokemon_list = [
-        create_test_pokemon("pikachu", attack=55, defense=40, speed=90, total_stats=320),
-        create_test_pokemon("charizard", attack=84, defense=78, speed=100, total_stats=534),
+        create_test_pokemon(
+            name="pikachu",
+            attack=55,
+            defense=40,
+            speed=90,
+            hp=35,
+            special_attack=50,
+            special_defense=50,
+        ),
+        create_test_pokemon(
+            name="charizard",
+            attack=84,
+            defense=78,
+            speed=100,
+            hp=78,
+            special_attack=109,
+            special_defense=85,
+        ),
     ]
 
     summary = create_stats_summary(pokemon_list)
 
-    assert summary["pokemon_count"] == 2
-    assert summary["average_attack"] == 69.5
-    assert summary["average_defense"] == 59.0
-    assert summary["average_speed"] == 95.0
-    assert summary["strongest_pokemon"] == "charizard"
-    assert summary["fastest_pokemon"] == "charizard"
-    assert summary["total_stats_by_pokemon"] == {
-        "pikachu": 320,
-        "charizard": 534,
-    }
+    assert summary.pokemon_count == 2
+
+    assert summary.max_attack.name == "Charizard"
+    assert summary.max_attack.value == 84
+
+    assert summary.max_speed.name == "Charizard"
+    assert summary.max_speed.value == 100
+
+    assert summary.max_hp.name == "Charizard"
+    assert summary.max_hp.value == 78
+
+    assert summary.max_defense.name == "Charizard"
+    assert summary.max_defense.value == 78
+
+    assert summary.max_special_attack.name == "Charizard"
+    assert summary.max_special_attack.value == 109
+
+    assert summary.max_special_defense.name == "Charizard"
+    assert summary.max_special_defense.value == 85

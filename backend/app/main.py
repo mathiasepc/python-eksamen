@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.controllers.ai_controller import router as ai_router
+from app.controllers.openai_controller import router as ai_router
 
 # route references
 from app.controllers.pokemon_controller import router as pokemon_router

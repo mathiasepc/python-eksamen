@@ -28,29 +28,40 @@ if st.button("Calculate statistic"):
     if response.status_code == 200:
         summary = response.json()
 
-        col1, col2, col3 = st.columns(3)
+        st.metric("Number of Pokemon", str(summary["pokemon_count"]))
+
+        col1, col2, col3, col4 = st.columns(4)
 
         # Displayed vertically
         with col1:
-            st.metric("Number of Pokemon", summary["pokemon_count"])
-            st.metric("Average attack", round(summary["average_attack"], 2))
+            st.metric("Most attack", summary["max_attack"]["value"], summary["max_attack"]["name"])
 
         with col2:
-            st.metric("Average defense", round(summary["average_defense"], 2))
-            st.metric("Average speed", round(summary["average_speed"], 2))
+            st.metric("Fastest", summary["max_speed"]["value"], summary["max_speed"]["name"])
 
         with col3:
-            st.metric("Strongest Pokemon", summary["strongest_pokemon"])
-            st.metric("Fastest Pokemon", summary["fastest_pokemon"])
+            st.metric("Most HP", summary["max_hp"]["value"], summary["max_hp"]["name"])
 
-        # Display total stats pr pokemon
-        st.write("### Total stats pr. Pokemon")
-        st.bar_chart(summary["total_stats_by_pokemon"])
+        with col4:
+            st.metric(
+                "Most defense", summary["max_defense"]["value"], summary["max_defense"]["name"]
+            )
 
-        # data combined from the pokemons picked
-        st.write("### Raw summary")
-        st.json(summary)
+        col5, col6 = st.columns(2)
 
+        with col5:
+            st.metric(
+                "Most special attack",
+                summary["max_special_attack"]["value"],
+                summary["max_special_attack"]["name"],
+            )
+
+        with col6:
+            st.metric(
+                "Most special defense",
+                summary["max_special_defense"]["value"],
+                summary["max_special_defense"]["name"],
+            )
     else:
         try:
             detail = response.json().get("detail", "Unkown error")

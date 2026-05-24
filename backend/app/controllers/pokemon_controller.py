@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
 from app.models.pokemon import PokemonResponse
-from app.services.pokeapi import get_pokemon
+from app.services.pokeapi_service import get_pokemon
 
 router = APIRouter(prefix="/api/pokemon", tags=["pokemon"])
 

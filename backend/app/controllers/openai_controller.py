@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 
-from app.models.ai import AskAIRequest, AskAIResponse
-from app.services.llm import ask_openai_about_pokemon
-from app.services.pokeapi import get_pokemon
+from app.models.openai import AskAIRequest, AskAIResponse
+from app.services.openai_service import ask_openai_about_pokemon
+from app.services.pokeapi_service import get_pokemon
 
 router = APIRouter(
     prefix="/api/ai",

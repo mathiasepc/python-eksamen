@@ -1,14 +1,15 @@
 from fastapi import APIRouter, HTTPException
 
 from app.models.pokemon import PokemonResponse
-from app.services.pokeapi import get_pokemon
-from app.services.stats import create_stats_summary
+from app.models.stats import StatsResponse
+from app.services.pokeapi_service import get_pokemon
+from app.services.stats_service import create_stats_summary
 
 router = APIRouter(prefix="/api/stats", tags=["stats"])
 
 
-@router.get("/summary")
-async def get_stats_summary(names: str) -> dict:
+@router.get("/summary", response_model=StatsResponse)
+async def get_stats_summary(names: str) -> StatsResponse:
     pokemon_names = [name.strip() for name in names.split(",") if name.strip()]
 
     # Control checks

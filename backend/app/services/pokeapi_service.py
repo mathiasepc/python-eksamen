@@ -31,8 +31,6 @@ def parse_pokemon_response(data: dict) -> PokemonResponse:
         height=data["height"],
         weight=data["weight"],
         stats=stats,
-        # Count all stats from PokemonStats
-        total_stats=sum(stats.model_dump().values()),
     )
 
 

@@ -41,7 +41,6 @@ def create_stats_dataframe(pokemon_list: list[dict]) -> pd.DataFrame:
                 "special_attack": stats["special_attack"],
                 "special_defense": stats["special_defense"],
                 "speed": stats["speed"],
-                "total_stats": pokemon["total_stats"],
             }
         )
 
@@ -110,11 +109,6 @@ if st.button("Compare"):
         st.write("### Base stats")
         base_stats_fig = plot_base_stats(df)
         st.pyplot(base_stats_fig)
-
-        # Total stats comined
-        st.write("### Total stats")
-        total_stats_fig = plot_total_stats(df)
-        st.pyplot(total_stats_fig)
 
     else:
         try:
