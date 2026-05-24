@@ -2,18 +2,16 @@
 [project]
 name = "pokeexplorer"
 version = "0.1.0"
+
 # The project is designed to run on Python 3.11 and 3.12.
 # Python 3.13+ is excluded to avoid compatibility issues with tools or libraries.
 requires-python = ">=3.11,<3.13"
-
-# Dependencies are kept empty here because this project currently uses
-# separate requirements.txt files for backend, frontend and development tools.
-dependencies = []
 
 # Pytest configuration.
 [tool.pytest.ini_options]
 # Tells pytest where to look for test files.
 testpaths = ["backend/tests"]
+
 # Adds the backend folder to Python's import path during tests.
 # This makes imports like "from app.services.stats import ..." work.
 pythonpath = ["backend"]
@@ -22,8 +20,6 @@ pythonpath = ["backend"]
 [tool.ruff]
 # Maximum allowed line length before Ruff reports a formatting/linting issue.
 line-length = 100
-# Tells Ruff to apply rules suitable for Python 3.11.
-target-version = "py311"
 
 # Ruff linting rules.
 [tool.ruff.lint]
@@ -37,10 +33,8 @@ select = ["E", "F", "I", "B"]
 [tool.pyright]
 # Files and folders included in type checking.
 include = ["backend/app", "backend/tests", "frontend"]
-# Files and folders excluded from type checking.
-exclude = [".venv", "**/__pycache__"]
 
-# Basic mode gives useful type checking 
+# Basic mode gives useful type checking without being too strict for this project.
 typeCheckingMode = "basic"
 
 # The Python version Pyright should use when analyzing the code.

@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.ai_endpoint import router as ai_router
+from app.controllers.ai_controller import router as ai_router
 
 # route references
-from app.api.pokemon_endpoints import router as pokemon_router
-from app.api.stats_endpoint import router as stats_router
+from app.controllers.pokemon_controller import router as pokemon_router
+from app.controllers.stats_controller import router as stats_router
 
 app = FastAPI(
     title="PokéExplorer API",
