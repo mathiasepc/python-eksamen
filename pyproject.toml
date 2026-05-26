@@ -16,25 +16,13 @@ testpaths = ["backend/tests"]
 # This makes imports like "from app.services.stats import ..." work.
 pythonpath = ["backend"]
 
-# Ruff configuration.
-[tool.ruff]
-# Maximum allowed line length before Ruff reports a formatting/linting issue.
-line-length = 100
-
-# Ruff linting rules.
-[tool.ruff.lint]
-# E = pycodestyle errors
-# F = pyflakes errors, such as unused imports or undefined names
-# I = import sorting
-# B = flake8-bugbear rules for common bug patterns
-select = ["E", "F", "I", "B"]
-
 # Pyright configuration.
 [tool.pyright]
 # Files and folders included in type checking.
 include = ["backend/app", "backend/tests", "frontend"]
 
 # Basic mode gives useful type checking without being too strict for this project.
+# 3 settings: off, basic, strict
 typeCheckingMode = "basic"
 
 # The Python version Pyright should use when analyzing the code.
